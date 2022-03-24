@@ -1,0 +1,14 @@
+---
+title: Welcome 
+stylesheets:
+  - ./index.css
+  - ./link.css
+  - ./main.css
+---
+{{!< base}}
+
+<main>
+    <h1 class="h1h1">{{title}}</h1>
+    {{> link href="./signIn.hbs" linkText="sign in"}}
+    {{> link href="./settings.hbs" linkText="settings"}}
+</main>

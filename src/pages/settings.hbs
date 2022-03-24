@@ -1,0 +1,26 @@
+---
+title: Setttings
+stylesheets:
+  - ./form.css
+  - ./link.css
+  - ./main.css
+  - ./button.css
+---
+{{!< base}}
+
+<main>
+    <form class="form__wrapper">
+        <div class="form__avatar-wrapper">
+            <img src="../images/avatar.jpeg" id="avatar" alt="Avatar" class="form__avatar">
+        </div>
+        <input id="first_name" class="form__input" placeholder="first name"></input>
+        <input id="second_name" class="form__input" placeholder="second name"></input>
+        <input id="display_name" class="form__input" placeholder="display name"></input>
+        <input id="email" class="form__input" placeholder="email"></input>
+        <input id="phone" class="form__input" placeholder="phone"></input>
+        <input id="oldPassword" type="password" class="form__input" placeholder="old password"></input>
+        <input id="newPassword" type="password" class="form__input" placeholder="new password"></input>
+        {{> link href="./about.hbs" linkText="about"}}
+        {{> button title="Save"}}
+    </form>
+</main>

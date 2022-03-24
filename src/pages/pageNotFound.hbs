@@ -1,0 +1,20 @@
+---
+code: 404
+title: OOPS, SORRY WE CAN'T FIND THIS PAGE
+description: Either something went wrong or the page doesn't exist
+stylesheets:
+  - ./pageNotFound.css
+  - ./button.css
+  - ./main.css
+  - ./link.css
+---
+{{!< base}}
+
+<main>
+    <div class='not-found-container'>
+        <h1 class="not-found-error">{{code}}</h1>
+        <p class="not-found-title">{{title}}</p>
+        <p class="not-found-description">{{description}}</p>
+        {{> link href='./error.hbs' linkText="erroro"}}
+    </div>
+</main>
