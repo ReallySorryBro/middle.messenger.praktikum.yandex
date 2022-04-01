@@ -20,9 +20,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Сheck if the repository is private
-      run: exit 1
-      if: ${{github.event.repository.private}}
     - name: Get testing lib
       run: set -eu && git clone https://github.com/Yandex-Practicum/tests-second-floor.git
     - name: Check dist and node_modules in .gitignore
@@ -33,8 +30,6 @@ jobs:
       run: bash tests-second-floor/sprint_1/check_parcel.sh
     - name: Check PORT 3000
       run: bash tests-second-floor/sprint_1/check_port.sh
-    - name: Check routing
-      run: node tests-second-floor/sprint_1/check_routing.js
       
   sprint_2:
     if: ${{github.head_ref == 'sprint_2'}}
