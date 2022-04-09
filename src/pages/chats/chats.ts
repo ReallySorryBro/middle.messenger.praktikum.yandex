@@ -42,7 +42,10 @@ export class Chats extends Block {
       e.preventDefault();
       this.state.messageValidation();
 
-      if (isValid) window.location.href = `${window.location.origin}/chats`;
+      if (isValid) {
+        window.location.href = `${window.location.origin}/chats`;
+        console.log('formData', this.state.values);
+      }
     };
     super({
       ...props,
