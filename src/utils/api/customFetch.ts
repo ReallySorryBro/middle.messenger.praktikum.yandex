@@ -1,3 +1,5 @@
+import { queryStringify } from './queryStringify';
+
 enum METHODS {
   GET = 'GET',
   PUT = 'PUT',
@@ -19,19 +21,20 @@ interface ParamsOptions<T> {
 
 export class HTTPTransport<T> {
   get = ({ url, options = {} }: ParamsOptions<T>) =>
-    this.request(url, { ...options, method: METHODS.GET }, options.timeout);
+    this.request(url, { ...options, method: METHODS.GET });
 
   post = ({ url, options = {} }: ParamsOptions<T>) =>
-    this.request(url, { ...options, method: METHODS.POST }, options.timeout);
+    this.request(url, { ...options, method: METHODS.POST });
 
   put = ({ url, options = {} }: ParamsOptions<T>) =>
-    this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
+    this.request(url, { ...options, method: METHODS.PUT });
 
   delete = ({ url, options = {} }: ParamsOptions<T>) =>
-    this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
+    this.request(url, { ...options, method: METHODS.DELETE });
 
-  request = (url: string, options: FetchOptions<T>, timeout = 5000) => {
+  request = (url: string, options: FetchOptions<T>) => {
     const { headers, method, data } = options;
+    const { timeout = 5000 } = options;
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -62,7 +65,9 @@ export class HTTPTransport<T> {
       xhr.onabort = reject;
       xhr.onerror = reject;
 
-      xhr.send(isGet || !data ? undefined : data as unknown as URLSearchParams);
+      xhr.send(
+        isGet || !data ? undefined : (data as unknown as URLSearchParams),
+      );
     });
   };
 }
