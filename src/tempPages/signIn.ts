@@ -11,4 +11,6 @@ registerComponent(Link);
 registerComponent(Input);
 registerComponent(Button);
 
-document.addEventListener('DOMContentLoaded', () => renderDOM(new SignIn()));
+document.addEventListener('DOMContentLoaded', () => {
+  renderDOM(new SignIn());
+});

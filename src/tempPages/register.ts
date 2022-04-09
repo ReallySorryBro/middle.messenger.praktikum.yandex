@@ -9,4 +9,6 @@ import Button from '../components/button';
 registerComponent(Input);
 registerComponent(Button);
 
-document.addEventListener('DOMContentLoaded', () => renderDOM(new Register()));
+document.addEventListener('DOMContentLoaded', () => {
+  renderDOM(new Register());
+});

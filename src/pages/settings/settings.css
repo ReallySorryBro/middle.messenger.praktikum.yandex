@@ -1,6 +1,3 @@
-@import url('../../css/postCss/variants.css');
-@import url('../../css/postCss/colors.css');
-
 .form-wrapper {
   flex: 0 0 auto;
   width: 360px;

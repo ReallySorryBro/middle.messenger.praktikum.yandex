@@ -6,4 +6,6 @@ import Link from '../components/link';
 
 registerComponent(Link);
 
-document.addEventListener('DOMContentLoaded', () => renderDOM(new PageNotFound()));
+document.addEventListener('DOMContentLoaded', () => {
+  renderDOM(new PageNotFound());
+});

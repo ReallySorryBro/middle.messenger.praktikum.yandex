@@ -11,4 +11,6 @@ registerComponent(Input);
 registerComponent(Avatar);
 registerComponent(Button);
 
-document.addEventListener('DOMContentLoaded', () => renderDOM(new Settings()));
+document.addEventListener('DOMContentLoaded', () => {
+  renderDOM(new Settings());
+});

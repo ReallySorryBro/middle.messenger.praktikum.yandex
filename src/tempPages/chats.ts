@@ -11,7 +11,7 @@ registerComponent(Button);
 registerComponent(Input);
 registerComponent(Message);
 
-document.addEventListener('DOMContentLoaded', () =>
+document.addEventListener('DOMContentLoaded', () => {
   renderDOM(
     new Chats({
       chatsData: [
@@ -46,6 +46,6 @@ document.addEventListener('DOMContentLoaded', () =>
           text: 'D',
         },
       ],
-    }),
-  ),
-);
+    })
+  );
+});
