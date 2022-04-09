@@ -11,7 +11,7 @@ export class PageNotFound extends Block {
             <h1 class="not-found-error">404</h1>
             <p class="not-found-title">OOPS, SORRY WE CAN'T FIND THIS PAGE</p>
             <p class="not-found-description">Either something went wrong or the page doesn't exist</p>
-            {{{Link text="Create account" href="./pageNotFound"}}}
+            {{{Link text="Create account" href="./signIn"}}}
         </div>
       </main>
     `;

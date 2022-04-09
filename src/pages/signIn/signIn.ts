@@ -1,49 +1,60 @@
 import Block from '../../core/Block';
-import { validateLogin, validatePassword } from '../../utils/validation';
+import { isFormValid, validateFieldById } from '../../utils/validation';
 
 import './signIn.css';
 
 export class SignIn extends Block {
   constructor() {
-    const onChange = (e: Event) => {
+    const handleChange = (e: Event) => {
       const target = e.target as HTMLInputElement;
+
       if (target) {
-        this.state.values[target.name] = target.value;
-      }
-    };
-    const onBlur = (e: Event) => {
-      const target = e.target as HTMLInputElement;
-      if (target) {
-        this.state.validators[target.name]();
+        this.state.values[target.id] = target.value;
       }
     };
     const onFocus = (e: Event) => {
       const target = e.target as HTMLInputElement;
+
       if (target) {
-        this.state.errors[target.name] = '';
+        this.state.errors[target.id] = '';
       }
     };
-    const onSubmit = (e: Event) => {
-      this.validate();
-      console.log('/changedata', this.state.values);
+    const onBlur = (e: Event) => {
+      const target = e.target as HTMLInputElement;
+
+      if (target) {
+        this.validate(target.id);
+      }
+    };
+    const handleSubmit = (e: Event) => {
+      const isValid = isFormValid(this.state.errors, this.state.values);
+
       e.preventDefault();
+      this.validate();
+
+      if (isValid) window.location.href = `${window.location.origin}/chats`;
     };
     super({
       events: {
-        input: onChange,
+        input: handleChange,
         focusin: onFocus,
         focusout: onBlur,
-        submit: onSubmit,
+        submit: handleSubmit,
       },
     });
   }
-  validate() {
-    Object.values(this.state.validators).forEach(value => {
-      (value as () => void)();
-    });
+  validate(id?: string) {
+    if (id) {
+      this.state[`${id}Validation`]();
+    } else {
+      Object.keys(this.state.values).forEach(value => {
+        this.state[`${value}Validation`]();
+      });
+    }
   }
   protected getStateFromProps(): void {
-    const error = 'nope';
+    const error = `the field doesn't match the requirements`;
+
     this.state = {
       values: {
         login: '',
@@ -53,28 +64,31 @@ export class SignIn extends Block {
         login: '',
         password: '',
       },
+      loginValidation: () => {
+        const { login } = this.state.values;
+        const isLoginCorrect = validateFieldById(login, 'login');
 
-      validators: {
-        login: () => {
-          const validationResult = validateLogin(this.state.values.login);
-          if (!validationResult) {
-            this.state.errors.login = error;
-          } else {
-            this.state.errors.login = '';
-          }
-          this.setState(this.state);
-        },
-        password: () => {
-          const nextSate = { ...this.state };
-          const validationResult = validatePassword(this.state.values.password);
+        const nextSate = {
+          ...this.state,
+          errors: {
+            ...this.state.errors,
+            login: isLoginCorrect ? '' : error,
+          },
+        };
+        this.setState(nextSate);
+      },
+      passwordValidation: () => {
+        const { password } = this.state.values;
+        const isPasswordCorrect = validateFieldById(password, 'password');
 
-          if (!validationResult) {
-            nextSate.errors.password = error;
-          } else {
-            nextSate.errors.password = '';
-          }
-          this.setState(nextSate);
-        },
+        const nextSate = {
+          ...this.state,
+          errors: {
+            ...this.state.errors,
+            password: isPasswordCorrect ? '' : error,
+          },
+        };
+        this.setState(nextSate);
       },
     };
   }
@@ -90,14 +104,12 @@ export class SignIn extends Block {
           {{{Input
             placeholder="login"
             id="login"
-            name="login"
             ref="login"
             value="${values.login}"
             error="${errors.login}"
           }}}
           {{{Input
             type="password"
-            name="password"
             ref="password"
             value="${values.password}"
             error="${errors.password}"
@@ -105,7 +117,7 @@ export class SignIn extends Block {
             id="password"
           }}}
           {{{Link text="register" href="./register"}}}
-          {{{Button text="Create account" to="chats" onClick=onLogin }}}
+          {{{Button text="Create account" to="chats"}}}
       </form>
     </main>
     `;

@@ -1,77 +1,143 @@
 import Block from '../../core/Block';
-import { validateEmail, validateName, validatePassword, validatePhone } from '../../utils/validation';
+import { validateFieldById, isFormValid } from '../../utils/validation';
 
 import './register.css';
 
 export class Register extends Block {
-  protected getStateFromProps() {
+  constructor() {
+    const handleChange = (e: Event) => {
+      const target = e.target as HTMLInputElement;
+
+      if (target) {
+        this.state.values[target.id] = target.value;
+      }
+    };
+    const onFocus = (e: Event) => {
+      const target = e.target as HTMLInputElement;
+
+      if (target) {
+        this.state.errors[target.id] = '';
+      }
+    };
+    const onBlur = (e: Event) => {
+      const target = e.target as HTMLInputElement;
+
+      if (target) {
+        this.validate(target.id);
+      }
+    };
+    const handleSubmit = (e: Event) => {
+      const isValid = isFormValid(this.state.errors, this.state.values);
+
+      e.preventDefault();
+      this.validate();
+
+      if (isValid) window.location.href = `${window.location.origin}/chats`;
+    };
+    super({
+      events: {
+        input: handleChange,
+        focusin: onFocus,
+        focusout: onBlur,
+        submit: handleSubmit,
+      },
+    });
+  }
+  validate(id?: string) {
+    if (id) {
+      this.state[`${id}Validation`]();
+    } else {
+      Object.keys(this.state.values).forEach(value => {
+        this.state[`${value}Validation`]();
+      });
+    }
+  }
+  protected getStateFromProps(): void {
+    const error = `the field doeesn't match the requirements`;
+
     this.state = {
       values: {
-        firstName: '',
-        lastName: '',
-        phone: '',
         email: '',
+        phone: '',
         password: '',
+        lastName: '',
+        firstName: '',
       },
       errors: {
-        firstName: '',
-        lastName: '',
-        phone: '',
         email: '',
+        phone: '',
         password: '',
+        lastName: '',
+        firstName: '',
       },
-      onRegister: () => {
-        const registerData = {
-          firstName: (this.refs.firstName.firstElementChild as HTMLInputElement)
-            .value,
-          lastName: (this.refs.lastName.firstElementChild as HTMLInputElement)
-            .value,
-          password: (this.refs.password.firstElementChild as HTMLInputElement)
-            .value,
-          phone: (this.refs.phone.firstElementChild as HTMLInputElement).value,
-          email: (this.refs.email.firstElementChild as HTMLInputElement).value,
-        };
+      emailValidation: () => {
+        const { email } = this.state.values;
+        const isEmailCorrect = validateFieldById(email, 'email');
 
-        const nextState = {
+        const nextSate = {
+          ...this.state,
           errors: {
-            firstName: '',
-            lastName: '',
-            phone: '',
-            email: '',
-            password: '',
+            ...this.state.errors,
+            email: isEmailCorrect ? '' : error,
           },
-          values: { ...registerData },
         };
-        const passwordEval = validatePassword(registerData.password);
-        const mailEval = validateEmail(registerData.email);
-        const phoneEval = validatePhone(registerData.phone);
-        const firstNameEval = validateName(registerData.firstName);
-        const lastNameEval = validateName(registerData.lastName);
-        const errorText = 'field doesn`\t meet the requirements';
+        this.setState(nextSate);
+      },
+      firstNameValidation: () => {
+        const { firstName } = this.state.values;
+        const isFirstNameCorrect = validateFieldById(firstName);
 
-        if (!passwordEval) {
-          nextState.errors.password = errorText;
-        }
-        if (!firstNameEval) {
-          nextState.errors.firstName = errorText;
-        }
-        if (!lastNameEval) {
-          nextState.errors.lastName = errorText;
-        }
-        if (!phoneEval) {
-          nextState.errors.phone = errorText;
-        }
-        if (!mailEval) {
-          nextState.errors.email = errorText;
-        }
-        if (passwordEval && phoneEval && mailEval && firstNameEval && lastNameEval) {
-          window.location.href = `${window.location.origin}/chats`;
-        }
+        const nextSate = {
+          ...this.state,
+          errors: {
+            ...this.state.errors,
+            firstName: isFirstNameCorrect ? '' : error,
+          },
+        };
+        this.setState(nextSate);
+      },
+      lastNameValidation: () => {
+        const { lastName } = this.state.values;
+        const isLastNameCorrect = validateFieldById(lastName);
 
-        this.setState(nextState);
+        const nextSate = {
+          ...this.state,
+          errors: {
+            ...this.state.errors,
+            lastName: isLastNameCorrect ? '' : error,
+          },
+        };
+        this.setState(nextSate);
+      },
+      passwordValidation: () => {
+        const { password } = this.state.values;
+        const isPasswordCorrect = validateFieldById(password, 'password');
+
+        const nextSate = {
+          ...this.state,
+          errors: {
+            ...this.state.errors,
+            password: isPasswordCorrect ? '' : error,
+          },
+        };
+        this.setState(nextSate);
+      },
+      phoneValidation: () => {
+        const { phone } = this.state.values;
+        const isPhoneCorrect = validateFieldById(phone, 'phone');
+
+        const nextSate = {
+          ...this.state,
+          errors: {
+            ...this.state.errors,
+            phone: isPhoneCorrect ? '' : error,
+          },
+        };
+        this.setState(nextSate);
       },
     };
   }
+
   render() {
     const { errors, values } = this.state;
 
@@ -82,7 +148,7 @@ export class Register extends Block {
           <h4 class="form-title">Register to MessegusO</h4>
           {{{Input
             placeholder="first name"
-            id="first_name"
+            id="firstName"
             ref="firstName"
             type="text"
             value="${values.firstName}"
@@ -90,7 +156,7 @@ export class Register extends Block {
           }}}
           {{{Input
             placeholder="last name"
-            id="last_name"
+            id="lastName"
             ref="lastName"
             type="text"
             value="${values.lastName}"

@@ -4,8 +4,10 @@ import { renderDOM, registerComponent } from '../core';
 import Chats from '../pages/chats';
 
 import Input from '../components/input';
+import Button from '../components/button';
 import Message from '../components/message';
 
+registerComponent(Button);
 registerComponent(Input);
 registerComponent(Message);
 

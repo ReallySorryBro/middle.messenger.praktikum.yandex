@@ -8,16 +8,8 @@ interface ButtonProps {
 }
 
 export class Button extends Block {
-  constructor({ text, onClick }: ButtonProps) {
-    const handleClick = (e: MouseEvent) => {
-      e.preventDefault();
-
-      if (onClick) {
-        onClick();
-      }
-    };
-
-    super({ text, events: { click: handleClick } });
+  constructor({ text, onClick = () => {} }: ButtonProps) {
+    super({ text, events: { click: onClick } });
   }
 
   protected render(): string {
