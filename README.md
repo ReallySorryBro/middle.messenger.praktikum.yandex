@@ -1,4 +1,4 @@
-Ссылка на PR sprint_2: https://github.com/ReallySorryBro/middle.messenger.praktikum.yandex/pull/3
+Ссылка на PR sprint_2: https://github.com/ReallySorryBro/middle.messenger.praktikum.yandex/pull/5
 ### Описание
 
 Проект представляет собой мессенджер для обмена сообщениями
