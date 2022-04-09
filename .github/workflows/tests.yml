@@ -62,6 +62,8 @@ jobs:
       # sprint 2 checks
     - name: Check typescript in package.json
       run: node tests-second-floor/sprint_2/check_typescript.js
+    - name: Check tsconfig required rules
+      run: node tests-second-floor/sprint_2/check_tsconfig.js
     - name: Check eslint
       run: node tests-second-floor/sprint_2/check_eslint.js
     - name: Check stylelint
