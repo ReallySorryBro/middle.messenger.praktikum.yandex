@@ -1,5 +1,6 @@
 import Block from '../../core/Block';
-import { isFormValid, validateFieldById } from '../../utils/validation';
+import { getNextState } from '../../utils/data';
+import { isFormValid } from '../../utils/validation';
 
 import './signIn.css';
 
@@ -56,8 +57,6 @@ export class SignIn extends Block {
     }
   }
   protected getStateFromProps(): void {
-    const error = `the field doesn't match the requirements`;
-
     this.state = {
       values: {
         login: '',
@@ -68,30 +67,14 @@ export class SignIn extends Block {
         password: '',
       },
       loginValidation: () => {
-        const { login } = this.state.values;
-        const isLoginCorrect = validateFieldById(login, 'login');
+        const nextState = getNextState(this.state, 'login');
 
-        const nextSate = {
-          ...this.state,
-          errors: {
-            ...this.state.errors,
-            login: isLoginCorrect ? '' : error,
-          },
-        };
-        this.setState(nextSate);
+        this.setState(nextState);
       },
       passwordValidation: () => {
-        const { password } = this.state.values;
-        const isPasswordCorrect = validateFieldById(password, 'password');
+        const nextState = getNextState(this.state, 'password');
 
-        const nextSate = {
-          ...this.state,
-          errors: {
-            ...this.state.errors,
-            password: isPasswordCorrect ? '' : error,
-          },
-        };
-        this.setState(nextSate);
+        this.setState(nextState);
       },
     };
   }

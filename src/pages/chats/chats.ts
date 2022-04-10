@@ -1,5 +1,6 @@
 import Block from '../../core/Block';
-import { isNotEmpty, isFormValid } from '../../utils/validation';
+import { getNextState } from '../../utils/data';
+import { isFormValid } from '../../utils/validation';
 
 import './chats.css';
 
@@ -58,8 +59,6 @@ export class Chats extends Block {
     });
   }
   protected getStateFromProps(): void {
-    const error = `start typing`;
-
     this.state = {
       values: {
         message: '',
@@ -68,16 +67,9 @@ export class Chats extends Block {
         message: '',
       },
       messageValidation: () => {
-        const { message } = this.state.values;
+        const nextState = getNextState(this.state, 'message');
 
-        const nextSate = {
-          ...this.state,
-          errors: {
-            ...this.state.errors,
-            message: isNotEmpty(message) ? '' : error,
-          },
-        };
-        this.setState(nextSate);
+        this.setState(nextState);
       },
     };
   }
@@ -90,11 +82,11 @@ export class Chats extends Block {
     <main>
       <div class="chats">
           <div class='all-chats'>
-            {{#each chatsData}}
-              {{#with this}}
-                {{{Message text="{{text}}"}}}
-              {{/with}}
-            {{/each}}
+          {{#each chatsData}}
+            {{#with this}}
+              {{{Message text="{{text}}"}}}
+            {{/with}}
+          {{/each}}
           </div>
           <div class='chat'>
             {{#each messages}}

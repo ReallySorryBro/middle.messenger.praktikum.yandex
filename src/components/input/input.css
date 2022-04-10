@@ -2,7 +2,7 @@
   width: 100%;
   height: 46px;
   border-radius: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 2px;
   padding: 10px;
   border: 1px solid;
   border-color: var(--variant-lightGrey);
@@ -10,9 +10,18 @@
   resize: vertical;
 }
 
+.error {
+  border-color: var(--color-red);
+}
+
+.valid {
+  margin-bottom: 26px;
+}
+
 .input-error {
   color: var(--color-red);
-  font-size: 12px;
+  font-size: var(--variant-extraCaption);
+  margin-bottom: 13px;
   text-align: center;
   height: 12px;
 }

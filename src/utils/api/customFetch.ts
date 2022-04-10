@@ -1,6 +1,6 @@
 import { queryStringify } from './queryStringify';
 
-enum METHODS {
+enum Methods {
   GET = 'GET',
   PUT = 'PUT',
   POST = 'POST',
@@ -10,7 +10,7 @@ enum METHODS {
 interface FetchOptions<T> {
   data?: T;
   timeout?: number;
-  method?: METHODS;
+  method: Methods;
   headers?: Record<string, string>;
 }
 
@@ -20,17 +20,17 @@ interface ParamsOptions<T> {
 }
 
 export class HTTPTransport<T> {
-  get = ({ url, options = {} }: ParamsOptions<T>) =>
-    this.request(url, { ...options, method: METHODS.GET });
+  get = ({ url, options = { method: Methods.GET } }: ParamsOptions<T>) =>
+    this.request(url, { ...options, method: Methods.GET });
 
-  post = ({ url, options = {} }: ParamsOptions<T>) =>
-    this.request(url, { ...options, method: METHODS.POST });
+  post = ({ url, options = { method: Methods.POST } }: ParamsOptions<T>) =>
+    this.request(url, { ...options, method: Methods.POST });
 
-  put = ({ url, options = {} }: ParamsOptions<T>) =>
-    this.request(url, { ...options, method: METHODS.PUT });
+  put = ({ url, options = { method: Methods.PUT } }: ParamsOptions<T>) =>
+    this.request(url, { ...options, method: Methods.PUT });
 
-  delete = ({ url, options = {} }: ParamsOptions<T>) =>
-    this.request(url, { ...options, method: METHODS.DELETE });
+  delete = ({ url, options = { method: Methods.DELETE } }: ParamsOptions<T>) =>
+    this.request(url, { ...options, method: Methods.DELETE });
 
   request = (url: string, options: FetchOptions<T>) => {
     const { headers, method, data } = options;
@@ -38,11 +38,11 @@ export class HTTPTransport<T> {
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      const isGet = method === METHODS.GET;
+      const isGet = method === Methods.GET;
 
       xhr.open(
-        method || METHODS.GET,
-        isGet && data && Object.keys(data).length
+        method,
+        data && Object.keys(data).length
           ? `${url}?${queryStringify(data)}`
           : url,
       );

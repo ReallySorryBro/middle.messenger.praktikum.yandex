@@ -1,5 +1,6 @@
 import Block from '../../core/Block';
-import { isFormValid, validateFieldById } from '../../utils/validation';
+import { getNextState } from '../../utils/data';
+import { isFormValid } from '../../utils/validation';
 
 import './settings.css';
 
@@ -56,8 +57,6 @@ export class Settings extends Block {
     }
   }
   protected getStateFromProps(): void {
-    const error = `the field doeesn't match the requirements`;
-
     this.state = {
       values: {
         email: '',
@@ -78,95 +77,39 @@ export class Settings extends Block {
         displayName: '',
       },
       emailValidation: () => {
-        const { email } = this.state.values;
-        const isEmailCorrect = validateFieldById(email, 'email');
+        const nextState = getNextState(this.state, 'email');
 
-        const nextSate = {
-          ...this.state,
-          errors: {
-            ...this.state.errors,
-            email: isEmailCorrect ? '' : error,
-          },
-        };
-        this.setState(nextSate);
+        this.setState(nextState);
       },
       firstNameValidation: () => {
-        const { firstName } = this.state.values;
-        const isFirstNameCorrect = validateFieldById(firstName);
+        const nextState = getNextState(this.state, 'firstName');
 
-        const nextSate = {
-          ...this.state,
-          errors: {
-            ...this.state.errors,
-            firstName: isFirstNameCorrect ? '' : error,
-          },
-        };
-        this.setState(nextSate);
+        this.setState(nextState);
       },
       lastNameValidation: () => {
-        const { lastName } = this.state.values;
-        const isLastNameCorrect = validateFieldById(lastName);
+        const nextState = getNextState(this.state, 'lastName');
 
-        const nextSate = {
-          ...this.state,
-          errors: {
-            ...this.state.errors,
-            lastName: isLastNameCorrect ? '' : error,
-          },
-        };
-        this.setState(nextSate);
+        this.setState(nextState);
       },
       displayNameValidation: () => {
-        const { displayName } = this.state.values;
-        const isDisplayNameCorrect = validateFieldById(displayName);
+        const nextState = getNextState(this.state, 'displayName');
 
-        const nextSate = {
-          ...this.state,
-          errors: {
-            ...this.state.errors,
-            displayName: isDisplayNameCorrect ? '' : error,
-          },
-        };
-        this.setState(nextSate);
+        this.setState(nextState);
       },
       oldPasswordValidation: () => {
-        const { oldPassword } = this.state.values;
-        const isPasswordCorrect = validateFieldById(oldPassword, 'password');
+        const nextState = getNextState(this.state, 'oldPassword');
 
-        const nextSate = {
-          ...this.state,
-          errors: {
-            ...this.state.errors,
-            oldPassword: isPasswordCorrect ? '' : error,
-          },
-        };
-        this.setState(nextSate);
+        this.setState(nextState);
       },
       newPasswordValidation: () => {
-        const { newPassword } = this.state.values;
-        const isPasswordCorrect = validateFieldById(newPassword, 'password');
+        const nextState = getNextState(this.state, 'newPassword');
 
-        const nextSate = {
-          ...this.state,
-          errors: {
-            ...this.state.errors,
-            newPassword: isPasswordCorrect ? '' : error,
-          },
-        };
-        this.setState(nextSate);
+        this.setState(nextState);
       },
       phoneValidation: () => {
-        const { phone } = this.state.values;
-        const isPhoneCorrect = validateFieldById(phone, 'phone');
+        const nextState = getNextState(this.state, 'phone');
 
-        const nextSate = {
-          ...this.state,
-          errors: {
-            ...this.state.errors,
-            phone: isPhoneCorrect ? '' : error,
-          },
-        };
-        this.setState(nextSate);
+        this.setState(nextState);
       },
     };
   }

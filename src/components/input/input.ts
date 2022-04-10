@@ -3,9 +3,6 @@ import Block from '../../core/Block';
 import './input.css';
 
 interface InputProps {
-  onChange?: () => void;
-  onFocus?: () => void;
-  onBlur?: () => void;
   type?: 'text' | 'password' | 'email';
   placeholder?: string;
   value?: string;
@@ -16,18 +13,8 @@ interface InputProps {
 }
 
 export class Input extends Block {
-  constructor({
-    onChange = () => {},
-    onFocus = () => {},
-    onBlur = () => {},
-    ref,
-    ...rest
-  }: InputProps) {
-    super({
-      ...rest,
-      ref: ref,
-      events: { input: onChange, focusin: onFocus, focusout: onBlur, },
-    });
+  constructor(props: InputProps) {
+    super(props);
   }
 
   protected render(): string {
@@ -35,7 +22,7 @@ export class Input extends Block {
     return `
       <div>
         <input
-          class="input-input"
+          class="input-input {{#if error}}error{{else}}valid{{/if}}"
           id="{{id}}"
           type="{{type}}"
           placeholder="{{placeholder}}"
@@ -43,7 +30,7 @@ export class Input extends Block {
           ref="{{ref}}"
           value="{{value}}"
         />
-        <div class="input-error">{{#if error}}{{error}}{{/if}}</div>
+        {{#if error}}<div class="input-error">{{error}}</div>{{/if}}
       </div>
     `;
   }
