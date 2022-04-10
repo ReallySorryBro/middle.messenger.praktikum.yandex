@@ -10,7 +10,7 @@
 
 ### Превью проекта
 
-https://deploy-preview-1--mellow-hotteok-2141d7.netlify.app/
+https://625346015c2ff52d1cad55e5--leafy-pony-ca2ce3.netlify.app/
 
 ### Запуск проекта
 
