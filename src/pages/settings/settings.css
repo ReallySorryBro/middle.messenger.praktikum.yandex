@@ -1,0 +1,10 @@
+.form-wrapper {
+  flex: 0 0 auto;
+  width: 360px;
+  margin: 0 auto;
+  height: 95vh;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+}

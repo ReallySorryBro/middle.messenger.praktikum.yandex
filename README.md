@@ -1,11 +1,16 @@
-Ссылка на PR sprint_2: https://github.com/ReallySorryBro/middle.messenger.praktikum.yandex/pull/3
-## Описание
+Ссылка на PR sprint_2: https://github.com/ReallySorryBro/middle.messenger.praktikum.yandex/pull/5
+### Описание
 
 Проект представляет собой мессенджер для обмена сообщениями
 
+В проекте используются:
+1. typescript - библиотека для работы с типизированным javascript
+2. eslint - плагин дла проверки корректности написания кода
+3. stylelint - плагин дла проверки корректности написания стилей
+
 ### Превью проекта
 
-https://deploy-preview-1--mellow-hotteok-2141d7.netlify.app/
+https://625346015c2ff52d1cad55e5--leafy-pony-ca2ce3.netlify.app/
 
 ### Запуск проекта
 

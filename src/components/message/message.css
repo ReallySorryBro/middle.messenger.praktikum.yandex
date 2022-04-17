@@ -1,0 +1,10 @@
+.chat-text {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.chat-preview {
+  display: flex;
+  align-items: baseline;
+}
